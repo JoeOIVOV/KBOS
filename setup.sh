@@ -112,6 +112,7 @@ mkdir -p ${LAUNCH_AGENTS_PATH} || exit 1;
 sed "s/sleepwatcher/${SLEEPWATCHER_PATH}/" ./sleepwatch_bluetooth.plist > \
     ${LAUNCH_AGENTS_PATH}/sleepwatch_bluetooth.plist || exit 1;
 echo "** sleepwatch_bluetooth.plist copied to ${LAUNCH_AGENTS_PATH}"
+launchctl unload ${KBOS_PLIST_PATH}
 launchctl load ${KBOS_PLIST_PATH}
 
 echo " "
