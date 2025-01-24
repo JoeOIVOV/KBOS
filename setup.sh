@@ -9,7 +9,7 @@ while test $# -gt 0; do
   case "$1" in
     -h|--help)
         echo "**************************************"
-        echo "KBOS - Kill Bluetooth on sleep 🔪🎧😴"
+        echo "KBOS - Kill Bluetooth on Sleep 🔪🎧😴"
         echo "**************************************"
         echo " "
         echo "When run without arguments, this script installs Blueutil and sleepwatcher ( if not installed already ), and configures the two to work together in order to disable bluetooth everytime the computer goes to sleep." 
