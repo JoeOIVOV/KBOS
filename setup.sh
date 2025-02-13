@@ -109,7 +109,7 @@ sed "s/blueutil/${BLUEUTIL_PATH}/" ./enable_bluetooth.sh > \
 chmod +x ${SLEEP_SCRIPTS_DIR}/* || exit 1;
 chmod +x ${WAKEUP_SCRIPTS_DIR}/* || exit 1;
 echo "** sleep scripts copied to ${SLEEP_SCRIPTS_DIR}"
-echo "** sleep scripts copied to ${WAKEUP_SCRIPTS_DIR}"
+echo "** wakeup scripts copied to ${WAKEUP_SCRIPTS_DIR}"
 
 launchctl unload ${KBOS_PLIST_PATH}
 launchctl load ${KBOS_PLIST_PATH}
