@@ -1,6 +1,7 @@
 #!/bin/bash 
 
-SLEEP_SCRIPTS_DIR=~/.sleepscripts
+SLEEP_SCRIPTS_DIR=~/.sleep
+WAKEUP_SCRIPTS_DIR=~/.wakeup
 LAUNCH_AGENTS_PATH=~/Library/LaunchAgents/
 KBOS_PLIST_PATH=~/Library/LaunchAgents/sleepwatch_bluetooth.plist
 
@@ -41,9 +42,13 @@ while test $# -gt 0; do
         ;;
       -u|--uninstall)
         if [ -d "${SLEEP_SCRIPTS_DIR}" ]; then
-            echo "* Removing sleepscripts dir"
+            echo "* Removing sleep script directory."
             rm -r ${SLEEP_SCRIPTS_DIR}
         fi
+        if [ -d "${WAKEUP_SCRIPTS_DIR}" ]; then
+            echo "* Removing wake script directory"
+            rm -r ${WAKEUP_SCRIPTS_DIR}
+        fi  
         
         if [ -f  "${KBOS_PLIST_PATH}" ]; then
             echo "* Removing Plist"
@@ -98,22 +103,17 @@ echo "***********************"
 SLEEPWATCHER_PATH=$(which sleepwatcher | sed 's_/_\\/_g')
 BLUEUTIL_PATH=$(which blueutil | sed 's_/_\\/_g')
 
-# Copy sleepscripts to user directory
+# Copy sleep scripts to user directory
 mkdir -p ${SLEEP_SCRIPTS_DIR} || exit 1;
+mkdir -p ${WAKEUP_SCRIPTS_DIR} || exit 1;
 sed "s/blueutil/${BLUEUTIL_PATH}/" ./disable_bluetooth.sh > \
     ${SLEEP_SCRIPTS_DIR}/disable_bluetooth.sh || exit 1;
 sed "s/blueutil/${BLUEUTIL_PATH}/" ./enable_bluetooth.sh > \
-    ${SLEEP_SCRIPTS_DIR}/enable_bluetooth.sh || exit 1;
+    ${WAKEUP_SCRIPTS_DIR}/enable_bluetooth.sh || exit 1;
 chmod +x ${SLEEP_SCRIPTS_DIR}/* || exit 1;
+chmod +x ${WAKEUP_SCRIPTS_DIR}/* || exit 1;
 echo "** sleep scripts copied to ${SLEEP_SCRIPTS_DIR}"
-
-# Copy plist to ~/Library/LaunchAgents - after creating the directory if it doesn't exist 
-mkdir -p ${LAUNCH_AGENTS_PATH} || exit 1;
-sed "s/sleepwatcher/${SLEEPWATCHER_PATH}/" ./sleepwatch_bluetooth.plist > \
-    ${LAUNCH_AGENTS_PATH}/sleepwatch_bluetooth.plist || exit 1;
-echo "** sleepwatch_bluetooth.plist copied to ${LAUNCH_AGENTS_PATH}"
-launchctl unload ${KBOS_PLIST_PATH}
-launchctl load ${KBOS_PLIST_PATH}
+echo "** sleep scripts copied to ${WAKEUP_SCRIPTS_DIR}"
 
 echo " "
 echo "KBOS has been successfully installed 🔪"
