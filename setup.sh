@@ -68,7 +68,7 @@ echo "***************************"
 
 if [[ $(which brew) == "" ]]; then
     echo "Could not find Hombrew, It's required to install Blueutil. Check it out https://brew.sh/"
-    exit 1
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
     echo "** Homebrew OK"
 fi
@@ -83,11 +83,11 @@ fi
 
 # Check for sleepwatcher
 if [[ $(brew ls --versions sleepwatcher) == "" ]]; then
-    echo "Could not find sleepwatcher, Installing ..."
+    echo "Could not find Sleepwatcher, Installing ..."
     brew install sleepwatcher || exit 1
     brew services start sleepwatcher || exit 1
 else
-    echo "** sleepwatcher OK"
+    echo "** Sleepwatcher OK"
 fi
 
 echo " "
