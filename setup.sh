@@ -3,7 +3,7 @@
 SLEEP_SCRIPTS_DIR=~/.sleep
 WAKEUP_SCRIPTS_DIR=~/.wakeup
 LAUNCH_AGENTS_PATH=~/Library/LaunchAgents/
-KBOS_PLIST_PATH=~/Library/LaunchAgents/sleepwatch_bluetooth.plist
+KBOS_PLIST_PATH=~/Library/LaunchAgents/homebrew.mxcl.sleepwatcher.plist
 
 # Caputre arguments if any
 while test $# -gt 0; do
@@ -50,10 +50,6 @@ while test $# -gt 0; do
             rm -r ${WAKEUP_SCRIPTS_DIR}
         fi  
         
-        if [ -f  "${KBOS_PLIST_PATH}" ]; then
-            echo "* Removing Plist"
-            rm ${KBOS_PLIST_PATH};
-        fi
         echo "* To uninstall Blueutil and Sleepwatcher, please visit https://docs.brew.sh/FAQ#how-do-i-uninstall-a-formula"
         echo "KBOS has successfully been uninstalled 🙅🏽‍♂️"
         ;;
@@ -114,6 +110,9 @@ chmod +x ${SLEEP_SCRIPTS_DIR}/* || exit 1;
 chmod +x ${WAKEUP_SCRIPTS_DIR}/* || exit 1;
 echo "** sleep scripts copied to ${SLEEP_SCRIPTS_DIR}"
 echo "** sleep scripts copied to ${WAKEUP_SCRIPTS_DIR}"
+
+launchctl unload ${KBOS_PLIST_PATH}
+launchctl load ${KBOS_PLIST_PATH}
 
 echo " "
 echo "KBOS has been successfully installed 🔪"
