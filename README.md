@@ -12,6 +12,15 @@ KBOS requires [Homebrew](https://brew.sh/) which is used to install the followin
  1. Install [Homebrew](https://brew.sh/) manually first. 
  2. run `bash setup.sh` from this directory.
 
+## Testing
+ 1. Run each command from Terminal, one at a time: 
+
+/usr/local/Cellar/sleepwatcher/2.2.1/sbin/sleepwatcher -V -s ~/.sleepscripts/disable_bluetooth.sh 
+/usr/local/Cellar/sleepwatcher/2.2.1/sbin/sleepwatcher -V -w ~/.sleepscripts/enable_bluetooth.sh 
+
+- Will activate sleepwatcher and provide the verbose output when the computer sleeps or wakes.
+
+
 ### Additional arguments
 ```
 -h, --help                show brief help menu
