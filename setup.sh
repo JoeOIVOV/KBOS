@@ -47,6 +47,7 @@ while test $# -gt 0; do
         
         if [ -f  "${KBOS_PLIST_PATH}" ]; then
             echo "* Removing Plist"
+            launchctl unload ${KBOS_PLIST_PATH}
             rm ${KBOS_PLIST_PATH};
         fi
         echo "* To uninstall Blueutil and Sleepwatcher, please visit https://docs.brew.sh/FAQ#how-do-i-uninstall-a-formula"
@@ -95,7 +96,6 @@ echo "Preparing sleep scripts"
 echo "***********************" 
 
 # Determine and escape absolute paths of sleepwatcher and Blueutil
-SLEEPWATCHER_PATH=$(which sleepwatcher | sed 's_/_\\/_g')
 BLUEUTIL_PATH=$(which blueutil | sed 's_/_\\/_g')
 
 # Copy sleepscripts to user directory
@@ -109,8 +109,7 @@ echo "** sleep scripts copied to ${SLEEP_SCRIPTS_DIR}"
 
 # Copy plist to ~/Library/LaunchAgents - after creating the directory if it doesn't exist 
 mkdir -p ${LAUNCH_AGENTS_PATH} || exit 1;
-sed "s/sleepwatcher/${SLEEPWATCHER_PATH}/" ./sleepwatch_bluetooth.plist > \
-    ${LAUNCH_AGENTS_PATH}/sleepwatch_bluetooth.plist || exit 1;
+cp sleepwatch_bluetooth.plist ${LAUNCH_AGENTS_PATH}
 echo "** sleepwatch_bluetooth.plist copied to ${LAUNCH_AGENTS_PATH}"
 launchctl load ${KBOS_PLIST_PATH}
 
